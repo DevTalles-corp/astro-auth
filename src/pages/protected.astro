@@ -1,12 +1,58 @@
 ---
+import { firebase } from '@/firebase/config';
 import MainLayout from '@/layouts/MainLayout.astro';
+
+const firebaseUser = firebase.auth.currentUser;
+
+if (firebaseUser === null) {
+  return Astro.redirect('/login');
+}
+
+const { displayName, email, emailVerified, photoURL } = firebaseUser;
+
+const name = displayName ?? 'No display Name';
 ---
 
 <MainLayout>
-  <h1 class="text-3xl">Página protegida</h1>
-  <p>
-    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, culpa sunt
-    consectetur modi, doloribus at deleniti perspiciatis eius molestias dolorem,
-    veniam eos corrupti corporis saepe. Ex suscipit unde mollitia quis.
-  </p>
+  <!-- component -->
+  <div
+    class="bg-gray-200 rounded-xl font-sans h-[600px] w-full flex flex-row justify-center items-center"
+  >
+    <div class="card w-96 mx-auto bg-white shadow-xl hover:shadow rounded">
+      {
+        photoURL ? (
+          <img
+            class="w-32 mx-auto rounded-full -mt-20 border-8 border-white"
+            src={photoURL}
+            alt={`Avatar de ${name}`}
+          />
+        ) : (
+          <div class="w-32 h-32 mx-auto rounded-full -mt-20 border-8 border-white bg-gray-300 flex justify-center items-center">
+            <span class="text-white text-3xl font-extrabold">
+              {name!.substring(0, 2)}
+            </span>
+          </div>
+        )
+      }
+
+      <div class="text-center mt-2 text-3xl font-medium">{name}</div>
+      <div class="text-center mt-2 font-light text-sm">{email}</div>
+      <div class="text-center font-normal text-lg">
+        {emailVerified ? 'Email verificado' : 'Email no verificado'}
+      </div>
+      <div class="px-6 text-center mt-2 font-light text-sm">
+        <p>Front end Developer, avid reader. Love to take a long walk, swim</p>
+      </div>
+      <hr class="mt-8" />
+      <div class="flex p-4">
+        <div class="w-1/2 text-center">
+          <span class="font-bold">1.8 k</span> Followers
+        </div>
+        <div class="w-0 border border-gray-300"></div>
+        <div class="w-1/2 text-center">
+          <span class="font-bold">2.0 k</span> Following
+        </div>
+      </div>
+    </div>
+  </div>
 </MainLayout>
