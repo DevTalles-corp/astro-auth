@@ -1,5 +1,8 @@
 ---
 import AuthLayout from '@/layouts/AuthLayout.astro';
+
+const email = Astro.cookies.get('email')?.value ?? '';
+const rememberMe = !!email;
 ---
 
 <AuthLayout>
@@ -17,6 +20,7 @@ import AuthLayout from '@/layouts/AuthLayout.astro';
           <input
             class="w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
             type="text"
+            name="name"
             placeholder="John Doe"
           />
         </div>
@@ -27,6 +31,8 @@ import AuthLayout from '@/layouts/AuthLayout.astro';
           <input
             class="w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
             type="email"
+            name="email"
+            value={email}
             placeholder="mail@gmail.com"
           />
         </div>
@@ -37,6 +43,7 @@ import AuthLayout from '@/layouts/AuthLayout.astro';
           <input
             class="w-full content-center text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
             type="password"
+            name="password"
             placeholder="Enter your password"
           />
         </div>
@@ -46,6 +53,7 @@ import AuthLayout from '@/layouts/AuthLayout.astro';
               id="remember_me"
               name="remember_me"
               type="checkbox"
+              checked={rememberMe}
               class="h-4 w-4 bg-blue-500 focus:ring-blue-400 border-gray-300 rounded"
             />
             <label for="remember_me" class="ml-2 block text-sm text-gray-800">

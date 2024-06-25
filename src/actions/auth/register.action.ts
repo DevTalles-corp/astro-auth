@@ -8,9 +8,18 @@ export const registerUser = defineAction({
     password: z.string().min(6),
     remember_me: z.boolean().optional(),
   }),
-  handler: async ({ name, password, remember_me, email }) => {
-    console.log({ name, password, remember_me, email });
+  handler: async ({ name, email, password, remember_me }, { cookies }) => {
+    if (remember_me) {
+      cookies.set('email', email, {
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365), // 1 año,
+        path: '/',
+      });
+    } else {
+      cookies.delete('email', {
+        path: '/',
+      });
+    }
 
-    return true;
+    return { ok: true, msg: 'Usuario creado' };
   },
 });
