@@ -1,6 +1,7 @@
 ---
 // import { firebase } from '@/firebase/config';
 import MainLayout from '@/layouts/MainLayout.astro';
+import { Image } from 'astro:assets';
 
 const { user, isLoggedIn } = Astro.locals;
 
@@ -30,10 +31,12 @@ const { avatar, email, emailVerified, name } = user;
     <div class="card w-96 mx-auto bg-white shadow-xl hover:shadow rounded">
       {
         avatar ? (
-          <img
+          <Image
             class="w-32 mx-auto rounded-full -mt-20 border-8 border-white"
             src={avatar}
             alt={`Avatar de ${name}`}
+            height={128}
+            width={128}
           />
         ) : (
           <div class="w-32 h-32 mx-auto rounded-full -mt-20 border-8 border-white bg-gray-300 flex justify-center items-center">

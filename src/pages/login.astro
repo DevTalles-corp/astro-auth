@@ -109,7 +109,7 @@ const rememberMe = !!email;
 
     const formData = new FormData(form);
 
-    const { error } = await actions.loginUser.safe(formData);
+    const { error } = await actions.loginUser(formData);
 
     if (error) {
       Swal.fire({
@@ -133,7 +133,7 @@ const rememberMe = !!email;
       const credentials = await signInWithPopup(firebase.auth, provider);
 
       // Paso 2: Vericar las credenciales en el backend
-      const { error } = await actions.loginWithGoogle.safe(credentials);
+      const { error } = await actions.loginWithGoogle(credentials);
 
       if (error) {
         alert(error.message);

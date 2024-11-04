@@ -105,7 +105,7 @@ const rememberMe = !!email;
 
     const formData = new FormData(form);
 
-    const { data, error } = await actions.registerUser.safe(formData);
+    const { data, error } = await actions.registerUser(formData);
 
     if (error) {
       Swal.fire({

@@ -20,6 +20,7 @@ export const onRequest = defineMiddleware(
       };
     }
 
+    console.log({ isLoggedIn, user });
     if (!isLoggedIn && privateRoutes.includes(url.pathname)) {
       return redirect('/');
     }
